@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a new Force{% endblock %}
+
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    <p>To create a new Force, select a <code>.ros</code> file from <a href="https://battlescribe.net/">BattleScribe</a> to import.</p>
+    <div class="form-group">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="bsRoster" name="bsRoster" accept=".ros" required>
+            <label class="custom-file-label" for="bsRoster">Choose file</label>
+        </div>
+    </div>
+    <div>
+        <p class="text-center"><button type="submit" class="btn btn-primary btn-lg">Import</button></p>
+    </div>
+</form>
+{% endblock %}
+
+{% block footer_js %}
+    <script>
+        $('#bsRoster').on('change',function()
+        {
+            $(this).next('.custom-file-label').html($(this).val());
+        })
+    </script>
+{% endblock %}

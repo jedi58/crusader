@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit: {{ data.force.name }}{% endblock %}
+
+{% block body %}
+    <form method="post" enctype="multipart/form-data">
+        <p class="form-group">
+            <label for="">Crusade Force Name</label>
+            <input type="text" class="form-control" value="{{ data.force.name }}" />
+        </p>
+        <p class="form-group">
+            <label for="">Crusade Faction</label>
+            <input type="text" class="form-control" value="{{ data.force.faction.name }}" />
+        </p>
+        <p class="form-group">
+            <label for="">Player Name</label>
+            <input type="text" class="form-control" value="{{ data.force.player.name }}" />
+        </p>
+        <div class="card-group">
+            <div class="card text-center">
+                <div class="card-header">
+                    <label>Battle Tally</label>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">0</p>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    <label>Battles Won</label>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">0</p>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    <label>Requisition Points</label>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">0</p>
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    <label>Supply Limit</label>
+                </div>
+                <div class="card-body">
+                    <input type="number" class="form-control text-center border-0" value="0" />
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    <label>Supply Used</label>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">0</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="">Crusade Goals, Information, and Notable Victories</label>
+        </div>
+        <div>
+            <p class="text-center"><button type="submit" class="btn btn-primary btn-lg">Save</button></p>
+        </div>
+    </form>
+    <table class="table table-dark table-striped table-hover table-responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Crusade Cards</th>
+                <th scope="col">Power Rating</th>
+                <th scope="col">Crusade Points</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for unit in data.force.cards %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ unit.name }}</td>
+                <td>{{ unit.powerRating }}</td>
+                <td>{{ unit.crusadePoints|default(0) }}</td>
+                <td><a href="{{ path('card_edit', { forceId: data.force.publicId, id: unit.id}) }}" class="btn btn-light btn-icon-split">
+                    <span class="icon text-gray-600">
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                        <span class="text">View Unit</span>
+                    </a></td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
